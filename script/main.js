@@ -24,6 +24,12 @@ const animationTimeline = () => {
     // split chars that needs to be animated individually
     const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
     const hbd = document.getElementsByClassName("wish-hbd")[0];
+    
+    // Initially hide the video element
+    const videoElement = document.getElementById("background-video");
+    if (videoElement) {
+        videoElement.parentElement.style.display = "none";
+    }
 
     textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
         .split("")
@@ -53,28 +59,26 @@ const animationTimeline = () => {
     tl.to(".container", 0.6, {
         visibility: "visible"
     })
-    .from(".one", 0.7, {
+    .from(".one", 1.0, {  // Increased duration from 0.7 to 1.0
         opacity: 0,
         y: 10
     })
-    .from(".two", 0.4, {
+    .from(".two", 2, {  // Increased duration from 0.7 to 1.0
         opacity: 0,
         y: 10
     })
     .to(".one",
-        0.7,
-        {
+        1.0, {  // Increased duration from 0.7 to 1.0
             opacity: 0,
             y: 10
         },
-    "+=3.5")
+    "+=3")
     .to(".two",
-        0.7,
-        {
+        1, {  // Increased duration from 0.7 to 1.0
             opacity: 0,
             y: 10
         },
-    "-=1")
+    "-=1.5")
     .from(".three", 0.7, {
         opacity: 0,
         y: 10
@@ -85,7 +89,7 @@ const animationTimeline = () => {
             opacity: 0,
             y: 10
         },
-    "+=3")
+    "+=2")
     .from(".four", 0.7, {
         scale: 0.2,
         opacity: 0,
@@ -104,7 +108,7 @@ const animationTimeline = () => {
     .to(".fake-btn", 0.1, {
         backgroundColor: "rgb(127, 206, 248)",
     },
-    "+=4")
+    "+=0.5")
     .to(
         ".four",
         0.5, {
@@ -114,9 +118,9 @@ const animationTimeline = () => {
         },
     "+=1")
     .from(".idea-1", 0.7, ideaTextTrans)
-    .to(".idea-1", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-1", 0.7, ideaTextTransLeave, "+=3")
     .from(".idea-2", 0.7, ideaTextTrans)
-    .to(".idea-2", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-2", 0.7, ideaTextTransLeave, "+=3")
     .from(".idea-3", 0.7, ideaTextTrans)
     .to(".idea-3 strong", 0.5, {
         scale: 1.2,
@@ -125,8 +129,6 @@ const animationTimeline = () => {
         color: "#fff",
     })
     .to(".idea-3", 0.7, ideaTextTransLeave, "+=2.5")
-    .from(".idea-4", 0.7, ideaTextTrans)
-    .to(".idea-4", 0.7, ideaTextTransLeave, "+=2.5")
     .from(
         ".idea-5",
         0.7, {
@@ -137,7 +139,7 @@ const animationTimeline = () => {
             z: 10,
             opacity: 0,
         },
-        "+=1.5"
+        "+=2"
     )
     .to(
         ".idea-5 span",
@@ -176,6 +178,17 @@ const animationTimeline = () => {
         0.2,
         "+=1.5"
     )
+    // Show the video section and play the video
+    .call(function() {
+        // Show the video container
+        document.querySelector('.seven').style.display = "block";
+        // Reset the video to ensure it starts from the beginning
+        videoElement.currentTime = 0;
+        // Play the video
+        videoElement.play();
+    })
+    // Pause the timeline until video ends
+    .addPause("+=0.5")
     .staggerFromTo(
         ".baloons img",
         2.5, {
@@ -264,9 +277,21 @@ const animationTimeline = () => {
         "+=1"
     );
 
+    // Add event listener to the video to resume animation when it ends
+    if (videoElement) {
+        videoElement.addEventListener('ended', function() {
+            // Show the picture
+            document.querySelector('.six').style.display = "block";
+            // Resume the timeline animation
+            tl.play();
+        });
+    }
+
     // Restart Animation on click
     const replyBtn = document.getElementById("replay");
     replyBtn.addEventListener("click", () => {
         tl.restart();
     });
 }
+
+

@@ -5,6 +5,8 @@ html {
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
+  background-color: black;
+  color: white;
 }
 
 .song {
@@ -50,9 +52,11 @@ body {
   width: 600px;
 }
 
+
 .text-box p {
   margin: 0;
   text-align: left;
+  white-space: pre-line;
 }
 
 .text-box span {
@@ -76,6 +80,10 @@ body {
   right: 0;
 }
 
+.idea-2 {
+  white-space: pre-line;
+}
+
 .idea-3 strong {
   border-radius: 3px;
   display: inline-block;
@@ -83,7 +91,7 @@ body {
 }
 
 .five .idea-5 {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .idea-5 span, .idea-6 span, .wish-hbd span {
@@ -109,11 +117,11 @@ body {
 }
 
 .six .hat {
-  left: 41.5%;
+  left: 45%;
   position: absolute;
-  /* transform: scale(0.1); */
   top: -35%;
   width: 80px;
+  transform: rotate(-30deg);
 }
 
 .baloons img {
@@ -273,8 +281,11 @@ body {
   }
 
   .six .hat {
-    /* top: -20px; */
-    width: 50px;
+    left: 40%;
+    position: absolute;
+    top: -35%;
+    width: 60px;
+    transform: rotate(-30deg);
   }
 
   .wish-hbd {
@@ -289,4 +300,83 @@ body {
     font-size: 1.5rem;
     font-weight: lighter;
   }
+  .seven video {
+    position: absolute;   /* Change to absolute to fill the parent container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crop/zoom the video to fill, maintaining aspect ratio */
+    z-index: 0;       /* Set to 0 or a positive value to ensure visibility */
+    background-color: black; /* Fallback color if video doesn't load */
+  }
 }
+
+    /* Responsive design - preserving animations */
+    @media screen and (max-width: 768px) {
+      /* Global scaling for all container elements */
+      .container {
+        transform: scale(0.85);
+        transform-origin: center top;
+        width: 100%;
+      }
+      
+      /* Fix font sizes for better readability */
+      .one h1 {
+        font-size: 2.2rem;
+      }
+      
+      .two {
+        font-size: 1.4rem;
+      }
+      
+      /* Ensure chat box text is clear */
+      .four .text-box {
+        width: 80%;
+        margin: 0 auto;
+      }
+      
+      .hbd-chatbox {
+        width: 100%;
+        font-size: 1rem;
+      }
+      
+      /* Make sure fake button is visible and clickable */
+      .fake-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+      
+      /* Properly scale the profile picture */
+      .profile-picture {
+        max-width: 200px;
+      }
+      
+      /* Video scaling */
+      #background-video {
+        object-fit: contain;
+      }
+    }
+    
+    /* Small phones */
+    @media screen and (max-width: 480px) {
+      /* Further scale down for very small screens */
+      .container {
+        transform: scale(0.75);
+      }
+      
+      /* Adjust individual elements for extreme small screens */
+      .hbd-chatbox {
+        font-size: 0.9rem;
+      }
+      
+      /* Fix for text overlap in the chatbox */
+      .text-box {
+        width: 85%;
+      }
+      
+      /* Ensure profile picture is properly sized */
+      .profile-picture {
+        max-width: 150px;
+      }
+    }

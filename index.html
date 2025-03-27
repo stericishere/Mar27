@@ -16,8 +16,41 @@
 </head>
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script>
+    window.addEventListener('load', () => {
+    // Grab the audio element
+    const song = document.querySelector('.song');
+    if (!song) return; // In case there's no audio element
 
-    <audio class="song" loop autoplay>
+    Swal.fire({
+        title: 'Do you want to play music in the background?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        allowOutsideClick: false,
+        didOpen: () => {
+        // 1) Directly attach a click handler to the confirm button
+        const confirmBtn = Swal.getConfirmButton();
+        confirmBtn.addEventListener('click', () => {
+            // 2) Attempt to play in the same call stack as the user gesture
+            song.play().catch((err) => {
+            console.warn('Safari fallback failed:', err);
+            });
+        });
+        }
+    }).then((result) => {
+        // 3) DO NOT call song.play() here again; it’s considered "non-user-initiated"
+        if (result.isConfirmed) {
+        // The user pressed "Yes" – background music should already be playing
+        }
+        // If you have any timeline or animation to start after the alert:
+        animationTimeline();
+    });
+    });
+</script>
+    <audio class="song" loop autoplay preload="auto">
         <source src="./music/hbd.mpeg">
         </source>
         Your browser isn't invited for super fun audio time.

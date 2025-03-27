@@ -1,4 +1,6 @@
 window.addEventListener('load', () => {
+    const song = document.querySelector('.song'); // Get the audio element outside
+
     Swal.fire({
         title: 'Do you want to play music in the background?',
         icon: 'warning',
@@ -9,25 +11,33 @@ window.addEventListener('load', () => {
         cancelButtonText: 'No',
         allowOutsideClick: false,
         didOpen: () => {
-            // For Safari on iOS — real user interaction
             const confirmBtn = Swal.getConfirmButton();
             confirmBtn.addEventListener('click', () => {
-                const song = document.querySelector('.song');
                 if (song) {
-                    song.play().catch((err) => console.warn('Safari fallback failed:', err));
+                    song.play()
+                        .then(() => {
+                            console.log('Audio started successfully (Safari didOpen)');
+                        })
+                        .catch((err) => {
+                            console.warn('Safari playback failed in didOpen:', err);
+                        });
                 }
             });
         }
     }).then((result) => {
-        const song = document.querySelector('.song');
         if (result.isConfirmed && song) {
-            // Works on most desktops/browsers
-            song.play().catch((err) => console.warn('Primary play failed:', err));
+            // This might still fail on iOS Safari if the above didn't work
+            song.play()
+                .then(() => {
+                    console.log('Audio started successfully (then)');
+                })
+                .catch((err) => {
+                    console.warn('Primary play failed in then:', err);
+                });
         }
         animationTimeline();
     });
 });
-
 
 // animation timeline
 const animationTimeline = () => {

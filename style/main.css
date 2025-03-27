@@ -49,7 +49,7 @@ body {
   margin: 0 auto;
   padding: 10px;
   position: relative;
-  width: 95%;
+  width: 85%;
 }
 
 
@@ -122,6 +122,7 @@ body {
   top: -35%;
   width: 80px;
   transform: rotate(-30deg);
+  transform-origin: center center;
 }
 
 .baloons img {
@@ -130,11 +131,11 @@ body {
 }
 
 .baloons img:nth-child(even) {
-  left: -10%;
+  left: -30%;
 }
 
 .baloons img:nth-child(odd) {
-  right: -10%;
+  right: -30%;
 }
 
 .seven {
@@ -254,32 +255,52 @@ body {
 /* Media Queries */
 @media screen and (max-height: 1000px) {
   .six .hat {
-    left: 40%;
+    left: 42%;
+    top: -35%;
+    position: absolute;
+    transform: rotate(-30deg);
+    transform-origin: center center;
+
   }
 }
 
 @media screen and (max-height: 800px) {
   .six .hat {
     left: 37%;
+    top: -35%;
+    position: absolute;
+    transform: rotate(-30deg);
+    transform-origin: center center;
+
   }
 }
 
 @media screen and (max-height: 700px) {
   .six .hat {
-    left: 30%;
+    left: 32%;
+    top: -35%;
+    position: absolute;
+    transform: rotate(-30deg);
+    transform-origin: center center;
+
   }
 }
 
 @media screen and (max-height: 850px) and (max-width: 450px) {
   .six .hat {
     left: 30%;
+    top: -35%;
+    position: absolute;
+    transform: rotate(-30deg);
+    transform-origin: center center;
+
   }
 }
 
 @media screen and (max-width: 500px) {
 
   .four .text-box {
-    width: 95%;
+    width: 85%;
   }
 
   .text-box .fake-btn {
@@ -297,10 +318,11 @@ body {
 
   .six .hat {
     left: 30%;
-    position: absolute;
     top: -35%;
-    width: 60px;
+    position: absolute;
     transform: rotate(-30deg);
+    transform-origin: center center;
+
   }
 
   .wish-hbd {
@@ -338,7 +360,7 @@ body {
     /* Responsive design - preserving animations */
     @media screen and (max-width: 768px) {
       .four .text-box {
-        width: 95%;
+        width: 85%;
         margin: 0 auto;
       }
       /* Global scaling for all container elements */
@@ -358,7 +380,7 @@ body {
       
       /* Ensure chat box text is clear */
       .four .text-box {
-        width: 95%;
+        width: 85%;
         margin: 0 auto;
       }
       
@@ -393,7 +415,7 @@ body {
     /* Small phones */
     @media screen and (max-width: 480px) {
       .four .text-box {
-        width: 95%;
+        width: 985;
         margin: 0 auto;
       }
       /* Adjust individual elements for extreme small screens */
@@ -403,7 +425,7 @@ body {
       
       /* Fix for text overlap in the chatbox */
       .text-box {
-        width: 95%;
+        width: 90%;
       }
       
       /* Ensure profile picture is properly sized */
@@ -417,6 +439,8 @@ body {
       top: -35%;
       width: 60px;
       transform: rotate(-30deg);
+      transform-origin: center center;
+
     }
 
     }

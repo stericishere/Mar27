@@ -1,4 +1,3 @@
-// trigger to play music in the background with sweetalert
 window.addEventListener('load', () => {
     Swal.fire({
         title: 'Do you want to play music in the background?',
@@ -8,13 +7,24 @@ window.addEventListener('load', () => {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.querySelector('.song').play();
-            animationTimeline();
-        } else {
-            animationTimeline();
+        allowOutsideClick: false,
+        didOpen: () => {
+            // For Safari on iOS — real user interaction
+            const confirmBtn = Swal.getConfirmButton();
+            confirmBtn.addEventListener('click', () => {
+                const song = document.querySelector('.song');
+                if (song) {
+                    song.play().catch((err) => console.warn('Safari fallback failed:', err));
+                }
+            });
         }
+    }).then((result) => {
+        const song = document.querySelector('.song');
+        if (result.isConfirmed && song) {
+            // Works on most desktops/browsers
+            song.play().catch((err) => console.warn('Primary play failed:', err));
+        }
+        animationTimeline();
     });
 });
 
@@ -189,17 +199,6 @@ const animationTimeline = () => {
     })
     // Pause the timeline until video ends
     .addPause("+=0.5")
-    .staggerFromTo(
-        ".baloons img",
-        2.5, {
-            opacity: 0.9,
-            y: 1400,
-        }, {
-            opacity: 1,
-            y: -1000,
-        },
-        0.2
-    )
     .from(
         ".profile-picture",
         0.5, {
@@ -252,16 +251,18 @@ const animationTimeline = () => {
         },
         "party"
     )
-    .staggerTo(
-        ".eight svg",
-        1.5, {
-            visibility: "visible",
-            opacity: 0,
-            scale: 80,
-            repeat: 3,
-            repeatDelay: 1.4,
+    .staggerFromTo(
+        ".baloons img",
+        2.5, {
+            opacity: 0.8,
+            y: 1400,
+            zIndex: "0",
+        }, {
+            opacity: 1,
+            y: -1000,
+            zIndex: "0",
         },
-        0.3
+        0.5
     )
     .to(".six", 0.5, {
         opacity: 0,

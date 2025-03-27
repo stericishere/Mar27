@@ -14,6 +14,40 @@
   <!-- My Style -->
   <link rel="stylesheet" href="./style/main.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+        const song = document.querySelector('.song');
+        if (!song) return;
+    
+        Swal.fire({
+        title: 'Do you want to play music in the background?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        allowOutsideClick: false,
+        didOpen: () => {
+            // Directly attach a click handler to the confirm button
+            const confirmBtn = Swal.getConfirmButton();
+            confirmBtn.addEventListener('click', () => {
+            // Attempt to play in the same call stack as the user gesture
+            song.play().then(() => {
+                console.log('Playback started.');
+            }).catch((err) => {
+                console.warn('Safari fallback failed:', err);
+            });
+            });
+        }
+        }).then((result) => {
+        // DO NOT call song.play() here again
+        if (result.isConfirmed) {
+            // Music should already be playing now
+        }
+        // If you have animations, call them here
+        // animationTimeline();
+        });
+    });
+  </script>
 </head>
 
 <body>
@@ -23,40 +57,6 @@
         Your browser isn't invited for super fun audio time.
     </audio>
       
-      <script>
-        window.addEventListener('load', () => {
-            const song = document.querySelector('.song');
-            if (!song) return;
-        
-            Swal.fire({
-            title: 'Do you want to play music in the background?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-            allowOutsideClick: false,
-            didOpen: () => {
-                // Directly attach a click handler to the confirm button
-                const confirmBtn = Swal.getConfirmButton();
-                confirmBtn.addEventListener('click', () => {
-                // Attempt to play in the same call stack as the user gesture
-                song.play().then(() => {
-                    console.log('Playback started.');
-                }).catch((err) => {
-                    console.warn('Safari fallback failed:', err);
-                });
-                });
-            }
-            }).then((result) => {
-            // DO NOT call song.play() here again
-            if (result.isConfirmed) {
-                // Music should already be playing now
-            }
-            // If you have animations, call them here
-            // animationTimeline();
-            });
-        });
-      </script>
 
     <div class="container">
         <div class="one">

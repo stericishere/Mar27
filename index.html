@@ -13,48 +13,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
   <!-- My Style -->
   <link rel="stylesheet" href="./style/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-<script>
-    window.addEventListener('load', () => {
-    // Grab the audio element
-    const song = document.querySelector('.song');
-    if (!song) return; // In case there's no audio element
-
-    Swal.fire({
-        title: 'Do you want to play music in the background?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
-        allowOutsideClick: false,
-        didOpen: () => {
-        // 1) Directly attach a click handler to the confirm button
-        const confirmBtn = Swal.getConfirmButton();
-        confirmBtn.addEventListener('click', () => {
-            // 2) Attempt to play in the same call stack as the user gesture
-            song.play().catch((err) => {
-            console.warn('Safari fallback failed:', err);
-            });
-        });
-        }
-    }).then((result) => {
-        // 3) DO NOT call song.play() here again; it’s considered "non-user-initiated"
-        if (result.isConfirmed) {
-        // The user pressed "Yes" – background music should already be playing
-        }
-        // If you have any timeline or animation to start after the alert:
-        animationTimeline();
-    });
-    });
-</script>
-    <audio class="song" loop autoplay preload="auto">
-        <source src="./music/hbd.mpeg">
-        </source>
+    <audio class="song" loop preload="auto">
+        <!-- Make sure this is a valid MP3 or M4A file, not .mpeg -->
+        <source src="./music/hbd.mpeg" type="audio/mpeg" />
         Your browser isn't invited for super fun audio time.
     </audio>
+      
+      <script>
+        window.addEventListener('load', () => {
+            const song = document.querySelector('.song');
+            if (!song) return;
+        
+            Swal.fire({
+            title: 'Do you want to play music in the background?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            allowOutsideClick: false,
+            didOpen: () => {
+                // Directly attach a click handler to the confirm button
+                const confirmBtn = Swal.getConfirmButton();
+                confirmBtn.addEventListener('click', () => {
+                // Attempt to play in the same call stack as the user gesture
+                song.play().then(() => {
+                    console.log('Playback started.');
+                }).catch((err) => {
+                    console.warn('Safari fallback failed:', err);
+                });
+                });
+            }
+            }).then((result) => {
+            // DO NOT call song.play() here again
+            if (result.isConfirmed) {
+                // Music should already be playing now
+            }
+            // If you have animations, call them here
+            // animationTimeline();
+            });
+        });
+      </script>
 
     <div class="container">
         <div class="one">

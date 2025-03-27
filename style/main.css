@@ -49,7 +49,7 @@ body {
   margin: 0 auto;
   padding: 10px;
   position: relative;
-  width: 600px;
+  width: 95%;
 }
 
 
@@ -135,6 +135,24 @@ body {
 
 .baloons img:nth-child(odd) {
   right: -10%;
+}
+
+.seven {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 100vh;
+  background-color: black;
 }
 
 .baloons img:nth-child(3n + 0) {
@@ -248,23 +266,20 @@ body {
 
 @media screen and (max-height: 700px) {
   .six .hat {
-    left: 32%;
+    left: 30%;
   }
 }
 
 @media screen and (max-height: 850px) and (max-width: 450px) {
   .six .hat {
-    left: 32%;
+    left: 30%;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .container {
-    width: 90%;
-  }
 
   .four .text-box {
-    width: 90%;
+    width: 95%;
   }
 
   .text-box .fake-btn {
@@ -281,7 +296,7 @@ body {
   }
 
   .six .hat {
-    left: 40%;
+    left: 30%;
     position: absolute;
     top: -35%;
     width: 60px;
@@ -300,13 +315,21 @@ body {
     font-size: 1.5rem;
     font-weight: lighter;
   }
+  .seven {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
   .seven video {
-    position: absolute;   /* Change to absolute to fill the parent container */
-    top: 0;
-    left: 0;
+    object-fit: contain;   /* Change to absolute to fill the parent container */
+    max-height: 100vh;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Crop/zoom the video to fill, maintaining aspect ratio */
     z-index: 0;       /* Set to 0 or a positive value to ensure visibility */
     background-color: black; /* Fallback color if video doesn't load */
   }
@@ -314,9 +337,12 @@ body {
 
     /* Responsive design - preserving animations */
     @media screen and (max-width: 768px) {
+      .four .text-box {
+        width: 95%;
+        margin: 0 auto;
+      }
       /* Global scaling for all container elements */
       .container {
-        transform: scale(0.85);
         transform-origin: center top;
         width: 100%;
       }
@@ -332,7 +358,7 @@ body {
       
       /* Ensure chat box text is clear */
       .four .text-box {
-        width: 80%;
+        width: 95%;
         margin: 0 auto;
       }
       
@@ -349,34 +375,48 @@ body {
       
       /* Properly scale the profile picture */
       .profile-picture {
-        max-width: 200px;
+        max-width: 100px;
       }
       
       /* Video scaling */
       #background-video {
-        object-fit: contain;
-      }
+
+        object-fit: contain;   /* Change to absolute to fill the parent container */
+        max-height: 100vh;
+        width: 100%;
+        height: 100%;
+        z-index: 0;       /* Set to 0 or a positive value to ensure visibility */
+        background-color: black; /* Fallback color if video doesn't load */
+  }
     }
     
     /* Small phones */
     @media screen and (max-width: 480px) {
-      /* Further scale down for very small screens */
-      .container {
-        transform: scale(0.75);
+      .four .text-box {
+        width: 95%;
+        margin: 0 auto;
       }
-      
       /* Adjust individual elements for extreme small screens */
       .hbd-chatbox {
-        font-size: 0.9rem;
+        font-size: 1rem;
       }
       
       /* Fix for text overlap in the chatbox */
       .text-box {
-        width: 85%;
+        width: 95%;
       }
       
       /* Ensure profile picture is properly sized */
       .profile-picture {
-        max-width: 150px;
+        max-width: 100px;
       }
+
+    .six .hat {
+      left: 30%;
+      position: absolute;
+      top: -35%;
+      width: 60px;
+      transform: rotate(-30deg);
+    }
+
     }
